@@ -2,6 +2,8 @@
 
 namespace App\Modules\Product\Shared\Models;
 
+use App\Modules\Product\Shared\Exceptions\InactiveProductException;
+use App\Modules\Product\Shared\Exceptions\InsufficientStockException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -46,14 +48,14 @@ class Product extends Model
         return $this->stock > 0;
     }
 
-    public function decreaseStock(int $quantity): bool
+    public function decreaseStock(int $quantity): void
     {
         if ($this->stock < $quantity) {
-            return false;
+            throw new InsufficientStockException($this->name,$this->stock , $quantity );
         }
 
         $this->decrement('stock', $quantity);
-        return true;
+        
     }
     
     public function increaseStock(int $quantity): void
