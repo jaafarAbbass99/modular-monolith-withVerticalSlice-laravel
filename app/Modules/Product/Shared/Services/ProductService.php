@@ -29,6 +29,7 @@ class ProductService implements ProductServiceInterface
         } 
         
         $this->productRepository->decrementStock($product ,$quantity );
+        
 
     } 
 
