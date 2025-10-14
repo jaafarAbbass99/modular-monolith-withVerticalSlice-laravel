@@ -4,6 +4,7 @@ namespace App\Modules\Product\Shared\Services;
 
 use App\Modules\Product\Contracts\ProductServiceInterface;
 use App\Modules\Product\Shared\DTOs\ProductResultDto;
+use App\Modules\Product\Shared\Events\LowStockDetected;
 use App\Modules\Product\Shared\Exceptions\InactiveProductException;
 use App\Modules\Product\Shared\Exceptions\notInStockProductException;
 use App\Modules\Product\Shared\Exceptions\ProductNotFoundException;
@@ -30,6 +31,9 @@ class ProductService implements ProductServiceInterface
         
         $this->productRepository->decrementStock($product ,$quantity );
         
+
+        if($product->IsLowStock())
+            event(new LowStockDetected($product, $product->stock));
 
     } 
 

@@ -8,7 +8,9 @@ class ProductServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Register module services
+        $this->mergeConfigFrom(
+            __DIR__ . '/../Config/product.php', 'product'
+        );
     }
 
     public function boot(): void
@@ -19,6 +21,10 @@ class ProductServiceProvider extends ServiceProvider
         
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+
+        $this->publishes([
+            __DIR__ . '/../Config/product.php' => config_path('product.php'),
+        ], 'product-config');
         
         // Load views if needed
         // $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'Product');

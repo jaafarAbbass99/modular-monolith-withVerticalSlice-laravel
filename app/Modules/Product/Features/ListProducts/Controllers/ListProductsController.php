@@ -25,7 +25,7 @@ class ListProductsController extends Controller
                 'max_price' => $request->get('max_price'),
                 'in_stock' => $request->get('in_stock'),
             ];
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->get('per_page', config('product.max_products_per_page'));
 
             $products = $this->product_repository->getFilteredProducts($filters,$perPage);
             

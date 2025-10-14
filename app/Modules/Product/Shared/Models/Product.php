@@ -63,4 +63,9 @@ class Product extends Model
         $this->increment('stock', $quantity);
     }
 
+    public function IsLowStock(){
+        $this->stock <= config('product.low_stock_threshold', 5)
+        ? true : false ;
+    }
+
 }
