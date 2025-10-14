@@ -9,7 +9,7 @@ class ProductServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/product.php', 'product'
+            __DIR__ . '/../Shared/Config/product.php', 'product'
         );
     }
 
@@ -23,7 +23,7 @@ class ProductServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         $this->publishes([
-            __DIR__ . '/../Config/product.php' => config_path('product.php'),
+            __DIR__ . '/../Shared/Config/product.php' => config_path('product.php'),
         ], 'product-config');
         
         // Load views if needed
