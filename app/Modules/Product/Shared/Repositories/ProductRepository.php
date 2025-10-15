@@ -4,6 +4,7 @@ namespace App\Modules\Product\Shared\Repositories;
 
 use App\Modules\Product\Shared\Models\Product;
 use App\Modules\Product\Shared\DTOs\ProductDTO;
+use App\Modules\Product\Shared\Exceptions\InactiveProductException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository
@@ -62,6 +63,11 @@ class ProductRepository
         return Product::active()
             ->byCategory($category)
             ->paginate($perPage);
+    }
+
+    public function decrementStock($product , $quantity){
+        $product->decreaseStock($quantity);
+        $product->save();
     }
 
 
