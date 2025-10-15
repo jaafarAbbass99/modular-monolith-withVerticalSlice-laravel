@@ -6,7 +6,7 @@ use Exception;
 
 class InsufficientStockException extends Exception
 {
-    public function __construct(int $productName, int $availableStock, int $requestedQuantity)
+    public function __construct(string $productName, int $availableStock, int $requestedQuantity)
     {
         return Parent::__construct(
             "Product '{$productName}' has insufficient stock.
