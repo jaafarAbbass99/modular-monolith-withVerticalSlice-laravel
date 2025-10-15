@@ -2,12 +2,16 @@
 
 namespace App\Modules\Product\Providers;
 
+use App\Modules\Product\Contracts\ProductServiceInterface;
+use App\Modules\Product\Shared\Services\ProductService;
 use Illuminate\Support\ServiceProvider;
 
 class ProductServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->bind(ProductServiceInterface::class , ProductService::class);
+
         $this->mergeConfigFrom(
             __DIR__ . '/../Shared/Config/product.php', 'product'
         );
