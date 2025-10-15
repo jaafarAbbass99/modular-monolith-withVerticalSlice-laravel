@@ -17,7 +17,7 @@ class CreateOrderRequest extends FormRequest
         return [
             'customer_name'=> 'required|string|max:255',
             'customer_email'=> 'required|email', 
-            'customer_phone'=> 'required|string|mx:20',
+            'customer_phone'=> 'required|string|max:20',
             'items'=>'required|array|min:1',
             'items.*.product_id'=>'required',
             'items.*.quantity'=>'required|integer|min:1',
