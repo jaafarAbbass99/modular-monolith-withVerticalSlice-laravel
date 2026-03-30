@@ -2,13 +2,19 @@
 
 namespace App\Modules\Product\Providers;
 
+use App\Modules\Product\Contracts\ProductServiceInterface;
+use App\Modules\Product\Shared\Services\ProductService;
 use Illuminate\Support\ServiceProvider;
 
 class ProductServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Register module services
+        $this->app->bind(ProductServiceInterface::class , ProductService::class);
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../Shared/Config/product.php', 'product'
+        );
     }
 
     public function boot(): void
@@ -19,6 +25,10 @@ class ProductServiceProvider extends ServiceProvider
         
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+
+        $this->publishes([
+            __DIR__ . '/../Shared/Config/product.php' => config_path('product.php'),
+        ], 'product-config');
         
         // Load views if needed
         // $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'Product');
